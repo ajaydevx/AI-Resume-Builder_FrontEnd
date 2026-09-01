@@ -33,7 +33,6 @@ function SignInComponent() {
   async function handleFormSubmit(event) {
     event.preventDefault();
     setIsLoading(true);
-    setShowToast(false);
     const formData = new FormData(event.target);
     const { email, password } = Object.fromEntries(formData.entries());
 
@@ -53,7 +52,7 @@ function SignInComponent() {
         setShowToast(true);
       }
     } catch (_error) {
-      setErrorMessage("Unable to connect to the server. Please try again.");
+      setErrorMessage("Something went wrong. Please try again later.");
       setShowToast(true);
     } finally {
       setIsLoading(false);
@@ -68,15 +67,19 @@ function SignInComponent() {
       <button onClick={handleBack} className="absolute top-4 sm:top-6 left-4 sm:left-6 p-2 bg-blue-900 text-white rounded-full shadow-md hover:bg-blue-800 transition-all duration-300"><FaArrowLeft size={16} /></button>
       <div ref={containerRef} className={`flex flex-col md:flex-row bg-white rounded-2xl shadow-xl max-w-4xl w-full overflow-hidden ${isVisible ? "opacity-100" : "opacity-0"}`}>
         <div ref={formRef} className="w-full md:w-1/2 bg-white p-6 sm:p-8 space-y-5 sm:space-y-6 rounded-2xl md:rounded-l-2xl border-r border-gray-100">
-          <div className="flex items-center justify-center gap-2"><svg className="w-6 h-6 sm:w-7 sm:h-7 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 0H5m4 0h10M7 8v8a2 2 0 104 0V8a2 2 0 10-4 0z" /></svg><span className="text-xl font-bold">Resume Builder</span></div>
-          <Form method="post" onSubmit={handleFormSubmit} className="space-y-5">
-            <div><label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label><input id="email" name="email" type="email" autoComplete="email" required className="mt-1 w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" /></div>
-            <div><label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label><input id="password" name="password" type="password" autoComplete="current-password" required className="mt-1 w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" /></div>
-            <button type="submit" disabled={isLoading} className="w-full rounded-lg bg-blue-600 py-2.5 font-semibold text-white disabled:opacity-60">{isLoading ? "Signing in..." : "Sign In"}</button>
+          <div className="flex items-center justify-center gap-2">
+            <svg className="w-6 h-6 sm:w-7 sm:h-7 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+            <h4 className="text-xl sm:text-2xl font-extrabold text-blue-900 tracking-tight text-center">Sign In</h4>
+          </div>
+          <Form method="post" className="space-y-4 sm:space-y-5" onSubmit={handleFormSubmit}>
+            <div><label htmlFor="email" className="block text-sm sm:text-base font-semibold text-blue-900">Email</label><input type="email" id="email" name="email" placeholder="Enter your email" className="w-full h-10 sm:h-11 px-3 sm:px-4 border border-gray-200 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-600 transition-all duration-300" required /></div>
+            <div><label htmlFor="password" className="block text-sm sm:text-base font-semibold text-blue-900">Password</label><input type="password" id="password" name="password" placeholder="Enter your password" className="w-full h-10 sm:h-11 px-3 sm:px-4 border border-gray-200 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-600 transition-all duration-300" required /></div>
+            <div className="text-right"><button type="button" className="text-blue-600 text-xs sm:text-sm font-semibold hover:underline">Forgot Password?</button></div>
+            <div><button type="submit" disabled={isLoading} className="w-full h-10 sm:h-11 px-4 sm:px-6 bg-blue-600 text-white font-semibold text-sm sm:text-base rounded-md shadow-md hover:bg-blue-700 disabled:opacity-60 transition-all duration-300">{isLoading ? "Signing In..." : "Sign In"}</button></div>
+            <div className="text-center"><p className="text-gray-600 text-xs sm:text-sm">Don't have an account? <Link to="/sign-up" className="text-blue-600 font-semibold hover:underline">Sign Up</Link></p></div>
           </Form>
-          <p className="text-center text-sm text-gray-600">Don't have an account? <Link to="/signup" className="font-semibold text-blue-600">Sign Up</Link></p>
         </div>
-        <div ref={imageRef} className="relative hidden md:block w-1/2 bg-gray-100"><img src={SignInImage} alt="Resume builder" className="h-full w-full object-cover" /><div className="overlay absolute inset-0 bg-black/10" /></div>
+        <div ref={imageRef} className="hidden md:block w-1/2 relative bg-gradient-to-br from-blue-50 to-blue-100"><img src={SignInImage} alt="Man Studying at Modern Desk" className="w-full h-full object-cover rounded-r-2xl" /><div className="overlay absolute bottom-0 left-0 right-0 bg-blue-900 bg-opacity-80 p-4 sm:p-6 text-white"><h3 className="text-lg sm:text-xl font-bold tracking-tight">Welcome Back!</h3><p className="text-sm sm:text-base mt-1 sm:mt-2 font-medium">Sign in to continue building your perfect resume.</p></div></div>
       </div>
     </div>
   );
