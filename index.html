@@ -19,6 +19,20 @@
   <script>
   eruda.init();
   </script>
+  <style>
+  /* Keep Eruda button above Netlify badge */
+  .eruda-container,
+  .eruda-dev-tools,
+  .eruda-entry-btn {
+    z-index: 2147483647 !important;
+  }
+
+  .eruda-entry-btn {
+    position: fixed !important;
+    right: 15px !important;
+    bottom: 80px !important;
+  }
+  </style>
 </head>
   
 
