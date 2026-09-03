@@ -94,7 +94,7 @@ function SignUpComponent() {
     }
 
     try {
-      const response = await fetch(`${API_URL}/user/sign-Up`, {
+      const response = await fetch(`${API_URL}/sign-Up`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
