@@ -87,7 +87,7 @@ function SignInComponent() {
     const { email, password } = Object.fromEntries(formData.entries());
 
     try {
-      const response = await fetch(`${API_URL}/user/sign-In`, {
+      const response = await fetch(`${API_URL}/sign-In`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
